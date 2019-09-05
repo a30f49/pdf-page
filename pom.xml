@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.jfeat</groupId>
   <artifactId>pdf-page</artifactId>
   <version>1.0.0</version>
   <name>Pdf Page Removal</name>
-  <properties> 
+  <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>  
+  </properties>
   <dependencies>
     <dependency>
       <groupId>com.itextpdf</groupId>
@@ -54,6 +54,26 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <classesDirectory>target/classes/</classesDirectory>
+          <archive>
+            <manifest>
+              <!-- 主函数的入口 -->
+              <mainClass>com.jfeat.pdf.pages.Generator</mainClass>
+              <!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
+              <useUniqueVersions>false</useUniqueVersions>
+              <addClasspath>true</addClasspath>
+            </manifest>
+            <manifestEntries>
+              <Class-Path>.</Class-Path>
+            </manifestEntries>
+          </archive>
+        </configuration>
       </plugin>
     </plugins>
   </build>
