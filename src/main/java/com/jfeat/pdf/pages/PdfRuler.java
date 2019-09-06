@@ -51,15 +51,25 @@ public class PdfRuler {
         for(int h=(int)hh; h<pageHeight; h+= hh){
             float dist = (h%100==0) ? distHx10 : ((h%50==0)? distHx5 : distH);
 
+            float marker = factorH*dist;
+
             canvas.moveTo(0, h);
-            canvas.lineTo(factorH*dist, h);
+            canvas.lineTo(marker, h);
+
+            canvas.moveTo(pageWidth, h);
+            canvas.lineTo(pageWidth - marker, h);
         }
 
         for(int w=(int)ww; w<pageWidth; w+= ww){
             float dist = (w%100==0) ? distWx10 : ((w%50==0)? distWx5 : distW);
 
+            float marker = factorW*dist*0.8f;
+
             canvas.moveTo(w, 0);
-            canvas.lineTo(w, factorW*dist*0.8);
+            canvas.lineTo(w, marker);
+
+            canvas.moveTo(w, pageHeight);
+            canvas.lineTo(w, pageHeight - marker);
         }
 
         canvas.stroke();

@@ -26,18 +26,18 @@ public class Generator {
         System.out.println(" -d,--delete Delete page.");
         System.out.println("             pdf-page <source> -d <page-range>");
         System.out.println("             Page range support 1,2 [3-5], -1 mean last page.");
+        System.out.println(" -p,--page   Print the page number on each page.");
+        System.out.println("             pdf-page <source> -p <startPage> <fontSize> <offsetBottom>");
         System.out.println(" -m,--mask   Mask specific area on page.");
         System.out.println("             pdf-page <source> -m <page-number> <pos> <size>");
         System.out.println(" -r,--ruler  Draw a ruler on page.");
         System.out.println("             pdf-page <source> -r <page-number>");
         System.out.println(" -T,--text   Draw text on page.");
-        System.out.println("             pdf-page <source> -t <page-number> <posx> <posy> <text> <LEFT|CENTER|RIGHT> <fontSize> [fontFamily]");
-        System.out.println(" -p,--print  Print the number of position on the page.");
-        System.out.println("             pdf-page <source> -p <page-number>");
+        System.out.println("             pdf-page <source> -T <page-number> <posx> <posy> <text> <LEFT|CENTER|RIGHT> <size> [family]");
     }
 
     public static void main(String[] args) {
-        args= new String[]{"test.pdf","-T","1","230","530","GZ","LEFT","12","¹ãÖÝ"};
+        //args= new String[]{"test.pdf","-T","1","230","530","GZ","LEFT","12","å¹¿å·ž"};
         if (args != null && args.length == 1) {
             // ok, skip usage
 
@@ -134,9 +134,12 @@ public class Generator {
                     PdfPages.createPage(pdfFilePath, imageUrls.toArray(new String[0]));
                 }
 
-            }else if(op.equals("-p") || op.equals("--print")){
-                int pageNumber = Integer.parseInt(param);
-                PdfPageNum.printPageNumber(pdfFilePath, pageNumber);
+            }else if(op.equals("-p") || op.equals("--page")){
+                int startPage = Integer.parseInt(param);
+                float fontSize = Integer.parseInt(args[3]);
+                float offsetBottom = Integer.parseInt(args[4]);
+
+                PdfPageNum.printPageNumber(pdfFilePath, startPage, fontSize, offsetBottom);
 
             }
             else if (op.equals("-m") || op.equals("--mask")) {
